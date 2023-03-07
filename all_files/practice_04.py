@@ -1,25 +1,43 @@
-# Write a python program to translate a message into secret code language. Use the rules below to translate normal English into secret code language
+import random
+import string
 
-# Coding:
-# if the word contains atleast 3 characters, remove the first letter and append it at the end
-#   now append three random characters at the starting and the end
-# else:
-#   simply reverse the string
-
-# Decoding:
-# if the word contains less than 3 characters, reverse it
-# else:
-#   remove 3 random characters from start and end. Now remove the last letter and append it to the beginning
-
-# Your program should ask whether you want to code or decode
+print("This program translates a message into secret Code lang and also you can Decode the code lang.")
 print("")
-print("Welcome to this program \n")
-user_input = input("Enter your text: ")
-if len(user_input) >= 3: 
-    # user_input.replace[0]
-    st = user_input[1:] + user_input[0]
-    print(st)
-    
-else:
-    print(user_input[::-1])
-    # user_input.r  
+user_input = input("Enter your message: ")
+print("")
+Coding = int(input("1 for Coding and 0 for Decoding: "))
+print("")
+
+
+#for random module
+length = 3
+characters = string.ascii_uppercase + string.ascii_lowercase + string.hexdigits
+r1 = ''.join(random.choice(characters) for i in range(length))
+r2 = ''.join(random.choice(characters) for i in range(length))
+
+words = user_input.split(" ")
+if Coding == 1:
+    nwords = []
+    for word in words:       
+        if len(word) >= 3:
+            st = r1 + word[1: ] + word[0] + r2           
+            nwords.append(st)    
+        else:
+            nwords.append(r1 + word[: :-1])
+    print("Result: "," ".join(nwords).lower())
+    print("") 
+elif Coding == 0:
+    nwords = []
+    for word in words: 
+        if len(word) >= 9: 
+            st =  word[3: -3]
+            st = st[-1] + st[ : -1]
+            nwords.append(st)
+        elif len(word) <= 5: 
+            st = word[3:]
+            st = st[: : -1]
+            nwords. append(st)
+    print("Result: " ," ".join(nwords).capitalize())
+    print("")   
+else: 
+    raise ValueError("Not a valid number.")       
